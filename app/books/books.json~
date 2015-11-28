@@ -1,0 +1,29 @@
+[{
+	"age": 0,
+	"name": "fight-club",
+	"imageUrl": "img/books/fight-club.jpg",
+	"title": "Fight Club",
+	"author": "Chuck Palunik",
+	"snippet": "A lesson in hitting rock bottom"
+}, {
+	"age": 1,
+	"name": "crime-and-punishment",
+	"imageUrl": "img/books/crime-and-punishment.jpg",
+	"title": "Crime and Punishment",
+	"author": "Fyodor Dostevsky",
+	"snippet": "A conflicting lesson in morality"
+}, {
+	"age": 2,
+	"name": "discoverers",
+	"imageUrl": "img/books/discoverers.jpg",
+	"title": "The Discoverers",
+	"author": "Daniel Boorstin",
+	"snippet": "A history of everything that has ever been created"
+}, {
+	"age": 3,
+	"name": "sun-also-rises",
+	"imageUrl": "img/books/sun-also-rises.jpg",
+	"title": "The Sun Also Rise",
+	"author": "Ernest Hemingway",
+	"snippet": "The story of the Lost Generation"
+}]
