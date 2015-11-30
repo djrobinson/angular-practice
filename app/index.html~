@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="bookApp" class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myapp" class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,32 +13,31 @@
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
   <link rel="stylesheet" href="app.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="http://www.amcharts.com/lib/3/serial.js"></script>
+<script src="http://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="http://www.amcharts.com/lib/3/amstock.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
 
 <div class="container-fluid">
-	<div class="row">
-		 <div class="col-md-2">
-		   <!--Sidebar content-->
+	<div class="row" ng-controller="priceController">
+		<form>
+			<input type="radio" name="graphs" ng-model="graph" value="line">Line Chart</br>
+			<input type="radio" name="graphs" ng-model="graph" value="candle">Candlestick
+		</form>
 
-		   Search: <input ng-model="query">
+				<div ng-if="graph == 'line'">       
+					 <line-chart></line-chart>    
+				</div>
+				<div ng-if="graph == 'candle'">
+					<candle-chart></candle-chart>
+				</div>
 
-		 </div>
-			<div ng-controller="BookListCtrl" class="col-md-10">
-
-				<ul class="books">
-					<li ng-repeat="book in books | orderBy:orderProp | filter:query">
-						<a href="#/books/{{ book.name }}" class="picture"><img ng-src="{{ book.imageUrl }}"></a>
-						<p>{{ book.title }} </p>
-						<p>{{ book.snippet }} </p>
-					</li>
-				</ul>
-
-			</div>	
 	</div>
-	<graph></graph>
+	<mygraph></mygraph>
 </div>
   <div>Angular seed app: v<span app-version></span></div>
 
@@ -48,6 +47,7 @@
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="app.js"></script>
+  <script src="graph-directives.js"></script>
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>

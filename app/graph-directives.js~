@@ -1,0 +1,240 @@
+myapp.directive('lineChart',
+   function () {
+       return {
+       		//restricts the name which it will match in the view (element, attribute, or class)
+           restrict: 'E',
+           //states that the directive should replace the element in the view with the template provided
+           replace:true,
+          //provides a template for the chart to be contained in
+           template: '<div id="linechartdiv" style="min-width: 310px; height: 400px; margin: 0 auto"></div>',
+           //link registers DOM listeners and is the place where the directive logic will be put
+           //scope is angular project scope, element is jqlite wrapped element that matches this directive and attrs
+           //is a hash of attribute name/value pairs
+           link: function (scope, element, attrs) {
+               
+                var chart = false;
+               
+                var initChart = function() {
+                  if (chart) chart.destroy();
+                  var config = scope.config || {};
+                   chart = AmCharts.makeChart("linechartdiv", {
+	            "type": "serial",
+	            "theme": "none",
+	            "marginLeft": 20,
+	            "pathToImages": "http://www.amcharts.com/lib/3/images/",
+	            "dataProvider": scope.data,
+	            "valueAxes": [{
+	                "axisAlpha": 0,
+	                "inside": true,
+	                "position": "left",
+	                "ignoreAxisWidth": true
+	            }],
+	            "graphs": [{
+	                "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+	                "bullet": "round",
+	                "bulletSize": 6,
+	                "lineColor": "#d1655d",
+	                "lineThickness": 2,
+	                "negativeLineColor": "#637bb6",
+	                "type": "smoothedLine",
+	                "valueField": "value"
+	            }],
+	            "chartScrollbar": {},
+	            "chartCursor": {
+	                "categoryBalloonDateFormat": "YYYY",
+	                "cursorAlpha": 0,
+	                "cursorPosition": "mouse"
+	            },
+	            "dataDateFormat": "YYYY",
+	            "categoryField": "year",
+	            "categoryAxis": {
+	                "minPeriod": "YYYY",
+	                "parseDates": true,
+	                "minorGridAlpha": 0.1,
+	                "minorGridEnabled": true
+	            }
+	        });
+                    
+                        
+                };
+                initChart();
+                   
+         }//end watch           
+       }
+   }) ;
+   
+   
+//myapp.directive('candleChart',
+//   function () {
+//       return {
+//       		//restricts the name which it will match in the view (element, attribute, or class)
+//           restrict: 'E',
+//           //states that the directive should replace the element in the view with the template provided
+//           replace:true,
+//          //provides a template for the chart to be contained in
+//           template: '<div id="canclechartdiv" style="min-width: 310px; height: 400px; margin: 0 auto"></div>',
+//           //link registers DOM listeners and is the place where the directive logic will be put
+//           //scope is angular project scope, element is jqlite wrapped element that matches this directive and attrs
+//           //is a hash of attribute name/value pairs
+//           link: function (scope, element, attrs) {
+//               
+//                var chart = false;
+//               
+//                var initChart = function() {
+//                  if (chart) chart.destroy();
+//                  var config = scope.config || {};
+//                   chart = AmCharts.makeChart( "candlechartdiv", {
+//							  type: "stock",
+//							  "theme": "light",
+//							  dataSets: [ {
+//								 fieldMappings: [ {
+//									fromField: "open",
+//									toField: "open"
+//								 }, {
+//									fromField: "close",
+//									toField: "close"
+//								 }, {
+//									fromField: "high",
+//									toField: "high"
+//								 }, {
+//									fromField: "low",
+//									toField: "low"
+//								 }, {
+//									fromField: "volume",
+//									toField: "volume"
+//								 }, {
+//									fromField: "value",
+//									toField: "value"
+//								 } ],
+
+//								 color: "#7f8da9",
+//								 dataProvider: scope.autoData,
+//								 title: "West Stock",
+//								 categoryField: "date"
+//							  }, {
+//								 fieldMappings: [ {
+//									fromField: "value",
+//									toField: "value"
+//								 } ],
+//								 color: "#fac314",
+//								 dataProvider: scope.autoData,
+//								 compared: true,
+//								 title: "East Stock",
+//								 categoryField: "date"
+//							  } ],
+
+
+//							  panels: [ {
+//									title: "Value",
+//									showCategoryAxis: false,
+//									percentHeight: 70,
+//									valueAxes: [ {
+//									  id: "v1",
+//									  dashLength: 5
+//									} ],
+
+//									categoryAxis: {
+//									  dashLength: 5
+//									},
+
+//									stockGraphs: [ {
+//									  type: "candlestick",
+//									  id: "g1",
+//									  openField: "open",
+//									  closeField: "close",
+//									  highField: "high",
+//									  lowField: "low",
+//									  valueField: "close",
+//									  lineColor: "#7f8da9",
+//									  fillColors: "#7f8da9",
+//									  negativeLineColor: "#db4c3c",
+//									  negativeFillColors: "#db4c3c",
+//									  fillAlphas: 1,
+//									  useDataSetColors: false,
+//									  comparable: true,
+//									  compareField: "value",
+//									  showBalloon: false,
+//									  proCandlesticks: true
+//									} ],
+
+//									stockLegend: {
+//									  valueTextRegular: undefined,
+//									  periodValueTextComparing: "[[percents.value.close]]%"
+//									}
+//								 },
+
+//								 {
+//									title: "Volume",
+//									percentHeight: 30,
+//									marginTop: 1,
+//									showCategoryAxis: true,
+//									valueAxes: [ {
+
+//									  dashLength: 5
+//									} ],
+
+//									categoryAxis: {
+//									  dashLength: 5
+//									},
+
+//									stockGraphs: [ {
+//									  valueField: "volume",
+//									  type: "column",
+//									  showBalloon: false,
+//									  fillAlphas: 1
+//									} ],
+
+//									stockLegend: {
+//									  markerType: "none",
+//									  markerSize: 0,
+//									  labelText: "",
+//									  periodValueTextRegular: "[[value.close]]"
+//									}
+//								 }
+//							  ],
+
+//							  chartScrollbarSettings: {
+
+//								 graph: "g1",
+//								 graphType: "line",
+//								 usePeriod: "WW"
+//							  },
+
+
+//							  chartCursorSettings: {
+//								 valueLineBalloonEnabled: true,
+//								 valueLineEnabled: true
+//							  },
+
+//							  periodSelector: {
+//								 position: "bottom",
+//								 periods: [ {
+//									period: "DD",
+//									count: 10,
+//									label: "10 days"
+//								 }, {
+//									period: "MM",
+//									selected: true,
+//									count: 1,
+//									label: "1 month"
+//								 }, {
+//									period: "YYYY",
+//									count: 1,
+//									label: "1 year"
+//								 }, {
+//									period: "YTD",
+//									label: "YTD"
+//								 }, {
+//									period: "MAX",
+//									label: "MAX"
+//								 } ]
+//							  }				
+//	        });
+//                    
+//                        
+//                };
+//                initChart();
+//                   
+//         }//end watch           
+//       }
+//   }) ;
